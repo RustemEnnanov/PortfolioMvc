@@ -9,6 +9,6 @@ namespace PortfolioSecondVersion.Models
     public class ViewPortfolio 
     {
        // public Portfolio Portfolio {get; set;}
-        public string  Languages { get; set;}
+        public IEnumerable<string>  Languages { get; set;}
     }
 }

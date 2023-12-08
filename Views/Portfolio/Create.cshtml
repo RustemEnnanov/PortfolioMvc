@@ -46,7 +46,9 @@
 
                         Movie Type
 
-                        @Html.DropDownList("Languages")
+                         @*@Html.DropDownList("Languages")
+                @Html.ListBox("Languages", ViewBag.Languages as MultiSelectList)*@
+                         @Html.ListBoxFor( x => x.Languages, ViewBag.Languages as MultiSelectList, new { style= "width:200px"});
 
                         <p>
 

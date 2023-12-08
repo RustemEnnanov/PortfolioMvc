@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -29,18 +30,15 @@ namespace PortfolioSecondVersion.Controllers
         {
             var languages = new List<Language> {
                 new Language { Id = Guid.NewGuid(), Name = "A" },
-                new Language { Id = Guid.NewGuid(), Name = "B" }
+                new Language { Id = Guid.NewGuid(), Name = "B" },
+                new Language { Id = Guid.NewGuid(), Name = "C" },
+                new Language { Id = Guid.NewGuid(), Name = "D" },
+                new Language { Id = Guid.NewGuid(), Name = "E" },
+                new Language { Id = Guid.NewGuid(), Name = "BF" }
             };//new SelectList(await _context.Lenguages.ToListAsync<Language>());
 
             // ViewBag.Languages = await _context.Lenguages.ToListAsync<Language>();
-            List<SelectListItem> selectList = languages.ConvertAll(l => {
-                return new SelectListItem
-                {
-                    Value = l.Id.ToString(),
-                    Text = l.Name,
-                    Selected = false
-                };
-            });
+            MultiSelectList selectList = new MultiSelectList(languages,"Id", "Name");
             ViewBag.Languages = selectList;
 
             return View();
@@ -52,5 +50,6 @@ namespace PortfolioSecondVersion.Controllers
             //_context.Portfolios.Add(newPortfolio.Portfolio);
             //_context.SaveChanges();
         }
+
     }
 }
