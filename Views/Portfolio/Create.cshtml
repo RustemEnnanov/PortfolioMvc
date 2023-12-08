@@ -1,0 +1,112 @@
+@model PortfolioSecondVersion.Models.ViewPortfolio
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Responsive Resume/CV Template for Developers</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.css">
+    <link id="theme-style" rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+<h4>Movie</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+     
+                @using (Html.BeginForm("SetPortfolio", "Portfolio", FormMethod.Get))
+                {
+                    @*
+                    <div class="form-group">
+                        <label asp-for="Portfolio.Name" class="control-label"></label>
+                        <input asp-for="Portfolio.Name" class="form-control" />
+                        <span asp-validation-for="Portfolio.Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Portfolio.Surname" class="control-label"></label>
+                        <input asp-for="Portfolio.Surname" class="form-control" />
+                        <span asp-validation-for="Portfolio.Surname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Portfolio.BirthDate" class="control-label"></label>
+                        <input asp-for="Portfolio.BirthDate" class="form-control" />
+                        <span asp-validation-for="Portfolio.BirthDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Portfolio.Description" class="control-label"></label>
+                        <textarea asp-for="Portfolio.Description" class="form-control"></textarea>
+                        <span asp-validation-for="Portfolio.Description" class="text-danger"></span>
+                    </div> *@
+                    <fieldset>
+
+                        Movie Type
+
+                        @Html.DropDownList("Languages")
+
+                        <p>
+
+                            <input type="submit" value="Submit" />
+
+                        </p>
+
+                    </fieldset>
+                <div class="form-group" id="LanguageBlock"></div>
+                <div class="form-group">
+                    <input value="Test" class="btn btn-primary" id="Test" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="SetPortfolio" class="btn btn-primary" id="Test" />
+                </div>
+                }
+
+                @*
+                <div>
+                @foreach (var item in (List<Language>)ViewBag.Languages)
+                {
+                <h3> @item.Name </h3>
+                }
+
+                </div>
+                <select class="form-select" asp-items="Model.Languages">
+                    @foreach (var item in ViewBag.Languages)
+                    {
+                        <option class="form-control" value="@item.Id">@item.Name</option>
+                    }
+                </select> *@
+
+ 
+    </div>
+</div>
+
+
+    <footer class="footer">
+        <div class="text-center">
+            <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+            <small class="copyright">Designed with <i class="fa fa-heart"></i> by <a href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+        </div><!--//container-->
+    </footer><!--//footer-->
+              @* <div class="form-group" id="LanguageBlock" >
+    <div class="form-group">
+    <input value="Test" class="btn btn-primary" id="Test" />
+    </div>
+    </div>
+    <div class="form-group">
+    <input type="submit" value="SetPortfolio" class="btn btn-primary" />
+    </div>*@
+    @*<script>
+        var addButton = this.document.getElementById('Test');
+        addButton.addEventListener('click', function () {
+            $('#LanguageBlock').append("@ListHelper.CreateList()");
+        });
+    </script>*@
+    <script type="text/javascript" src="../plugins/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+</body>
+</html>
+

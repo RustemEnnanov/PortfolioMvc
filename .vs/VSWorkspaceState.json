@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\bin",
+    "\\bin\\Debug",
+    "\\bin\\Release",
+    "\\bin\\Release\\net7.0",
+    "\\Models",
+    "\\wwwroot",
+    "\\wwwroot\\plugins",
+    "\\wwwroot\\plugins\\bootstrap",
+    "\\wwwroot\\plugins\\bootstrap\\css"
+  ],
+  "SelectedNode": "\\wwwroot\\plugins\\bootstrap\\css\\bootstrap.min.css",
+  "PreviewInSolutionExplorer": false
+}
