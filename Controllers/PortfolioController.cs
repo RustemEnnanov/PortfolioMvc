@@ -37,11 +37,20 @@ namespace PortfolioSecondVersion.Controllers
                 new Language { Id = Guid.NewGuid(), Name = "BF" }
             };//new SelectList(await _context.Lenguages.ToListAsync<Language>());
 
-            // ViewBag.Languages = await _context.Lenguages.ToListAsync<Language>();
-            MultiSelectList selectList = new MultiSelectList(languages,"Id", "Name");
-            ViewBag.Languages = selectList;
+            ViewPortfolio portfolios = new ViewPortfolio();
+            portfolios.Languages = new List<SelectListItem> {
+            new SelectListItem { Text = "One", Value = "1" },
+            new SelectListItem { Text = "Two", Value = "2" },
+            new SelectListItem { Text = "Three", Value = "3" },
+            new SelectListItem { Text = "Four", Value = "4" },
+            new SelectListItem { Text = "Five", Value = "5" }
+        };
 
-            return View();
+            // ViewBag.Languages = await _context.Lenguages.ToListAsync<Language>();
+            MultiSelectList selectListTwo = new MultiSelectList(portfolios.Languages, "Value", "Text");
+           // ViewBag.Languages = selectListTwo;
+
+            return View(portfolios);
         }
         [HttpGet]
         public void SetPortfolio(ViewPortfolio newPortfolio)

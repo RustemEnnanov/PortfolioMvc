@@ -43,13 +43,21 @@
                         <span asp-validation-for="Portfolio.Description" class="text-danger"></span>
                     </div> *@
                     <fieldset>
+                    <label for="SelectedItemIds">Select items:</label>
 
-                        Movie Type
+                    @Html.ListBoxFor(model => model.SelectedItemIds, Model.Languages, new { @class = "form-control" })
 
                          @*@Html.DropDownList("Languages")
                 @Html.ListBox("Languages", ViewBag.Languages as MultiSelectList)*@
-                         @Html.ListBoxFor( x => x.Languages, ViewBag.Languages as MultiSelectList, new { style= "width:200px"});
+                        @* @Html.ListBoxFor( x => x.Languages, 
+                             ViewBag.Languages as MultiSelectList, 
+                             new { 
+                                 @class="form-group",
+                                 style= "width:200px"
+                             }
+                         )
 
+                <select asp-for="Languages" class="form-control" asp-items="ViewBag.Languages" multiple></select>*@
                         <p>
 
                             <input type="submit" value="Submit" />
