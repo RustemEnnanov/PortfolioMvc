@@ -28,36 +28,37 @@ namespace PortfolioSecondVersion.Controllers
         }
         public async Task<IActionResult> Create(Portfolio newPortfolio)
         {
-            var languages = new List<Language> {
-                new Language { Id = Guid.NewGuid(), Name = "A" },
-                new Language { Id = Guid.NewGuid(), Name = "B" },
-                new Language { Id = Guid.NewGuid(), Name = "C" },
-                new Language { Id = Guid.NewGuid(), Name = "D" },
-                new Language { Id = Guid.NewGuid(), Name = "E" },
-                new Language { Id = Guid.NewGuid(), Name = "BF" }
-            };//new SelectList(await _context.Lenguages.ToListAsync<Language>());
+            var languages = await _context.Languages.ToListAsync<Language>();
 
-            ViewPortfolio portfolios = new ViewPortfolio();
-            portfolios.Languages = new List<SelectListItem> {
-            new SelectListItem { Text = "One", Value = "1" },
-            new SelectListItem { Text = "Two", Value = "2" },
-            new SelectListItem { Text = "Three", Value = "3" },
-            new SelectListItem { Text = "Four", Value = "4" },
-            new SelectListItem { Text = "Five", Value = "5" }
-        };
+            ViewPortfolio viewAddPage = new ViewPortfolio();
 
-            // ViewBag.Languages = await _context.Lenguages.ToListAsync<Language>();
-            MultiSelectList selectListTwo = new MultiSelectList(portfolios.Languages, "Value", "Text");
-           // ViewBag.Languages = selectListTwo;
+            viewAddPage.Languages = languages.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
 
-            return View(portfolios);
+            return View(viewAddPage);
         }
-        [HttpGet]
-        public void SetPortfolio(ViewPortfolio newPortfolio)
+        [HttpPost]
+        public void SetPortfolio(ViewPortfolio addPortfolioData)
         {
-            var a = newPortfolio;
-            //_context.Portfolios.Add(newPortfolio.Portfolio);
-            //_context.SaveChanges();
+            Guid portfolioId = Guid.NewGuid();
+            Portfolio newPortfolio = new Portfolio {
+                Id = portfolioId,
+                Name = addPortfolioData.Name,
+                Surname = addPortfolioData.Surname,
+                Description = addPortfolioData.Description
+            };
+
+            _context.Portfolios.Add(newPortfolio);
+            _context.SaveChanges();
+
+            List<LanguagePortfolio> newLanguagePortfolio = addPortfolioData.SelectedItemIds.Select(l => 
+                new LanguagePortfolio
+                { 
+                    PortfolioId = portfolioId,
+                    LanguageId = new Guid(l.ToString())
+                }).ToList();
+ 
+            _context.LanguagesPortfolios.AddRange(newLanguagePortfolio);
+            _context.SaveChanges();
         }
 
     }

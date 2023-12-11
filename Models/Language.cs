@@ -15,7 +15,7 @@ namespace PortfolioSecondVersion.Models
         [MaxLength(100)]
         public string? Name {get;set;}
 
-        public ICollection<Portfolio> Portfolios {get; set;}
+        public ICollection<LanguagePortfolio> LanguagePortfolio { get; set;}
         
     }
 }

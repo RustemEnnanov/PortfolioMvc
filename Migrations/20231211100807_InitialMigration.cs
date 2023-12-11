@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PortfolioSecondVersion.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Lenguages",
+                name: "Languages",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -20,7 +20,7 @@ namespace PortfolioSecondVersion.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Lenguages", x => x.Id);
+                    table.PrimaryKey("PK_Languages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -39,43 +39,49 @@ namespace PortfolioSecondVersion.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LanguagePortfolio",
+                name: "LanguagesPortfolios",
                 columns: table => new
                 {
-                    LanguagesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PortfoliosId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LanguageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PortfolioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LanguagePortfolio", x => new { x.LanguagesId, x.PortfoliosId });
+                    table.PrimaryKey("PK_LanguagesPortfolios", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LanguagePortfolio_Lenguages_LanguagesId",
-                        column: x => x.LanguagesId,
-                        principalTable: "Lenguages",
+                        name: "FK_LanguagesPortfolios_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_LanguagePortfolio_Portfolios_PortfoliosId",
-                        column: x => x.PortfoliosId,
+                        name: "FK_LanguagesPortfolios_Portfolios_PortfolioId",
+                        column: x => x.PortfolioId,
                         principalTable: "Portfolios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_LanguagePortfolio_PortfoliosId",
-                table: "LanguagePortfolio",
-                column: "PortfoliosId");
+                name: "IX_LanguagesPortfolios_LanguageId",
+                table: "LanguagesPortfolios",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LanguagesPortfolios_PortfolioId",
+                table: "LanguagesPortfolios",
+                column: "PortfolioId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "LanguagePortfolio");
+                name: "LanguagesPortfolios");
 
             migrationBuilder.DropTable(
-                name: "Lenguages");
+                name: "Languages");
 
             migrationBuilder.DropTable(
                 name: "Portfolios");

@@ -7,9 +7,7 @@ namespace PortfolioSecondVersion.Data
     {
         public PortfolioSecondVersionContext(DbContextOptions<PortfolioSecondVersionContext> options) : base(options) { }
         public DbSet<Portfolio> Portfolios { get; set; }
-        public DbSet<Language> Lenguages { get; set; }
-
-
-
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<LanguagePortfolio> LanguagesPortfolios { get; set; }
     }
 }

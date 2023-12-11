@@ -13,12 +13,12 @@ namespace PortfolioSecondVersion.Models
         {
             using(var context = new PortfolioSecondVersionContext(serviceProvider.GetRequiredService<DbContextOptions<PortfolioSecondVersionContext>>())) 
             {
-                if (context.Lenguages.Any())
+                if (context.Languages.Any())
                 {
                     return;
                 }
 
-                context.Lenguages.AddRange(
+                context.Languages.AddRange(
                     new Language
                     {
                         Id = Guid.NewGuid(),

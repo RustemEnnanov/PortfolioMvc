@@ -12,8 +12,8 @@ using PortfolioSecondVersion.Data;
 namespace PortfolioSecondVersion.Migrations
 {
     [DbContext(typeof(PortfolioSecondVersionContext))]
-    [Migration("20231108195738_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231211100807_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,21 +24,6 @@ namespace PortfolioSecondVersion.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("LanguagePortfolio", b =>
-                {
-                    b.Property<Guid>("LanguagesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PortfoliosId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("LanguagesId", "PortfoliosId");
-
-                    b.HasIndex("PortfoliosId");
-
-                    b.ToTable("LanguagePortfolio");
-                });
 
             modelBuilder.Entity("PortfolioSecondVersion.Models.Language", b =>
                 {
@@ -53,7 +38,28 @@ namespace PortfolioSecondVersion.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Lenguages");
+                    b.ToTable("Languages");
+                });
+
+            modelBuilder.Entity("PortfolioSecondVersion.Models.LanguagePortfolio", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("LanguageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PortfolioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("PortfolioId");
+
+                    b.ToTable("LanguagesPortfolios");
                 });
 
             modelBuilder.Entity("PortfolioSecondVersion.Models.Portfolio", b =>
@@ -83,19 +89,33 @@ namespace PortfolioSecondVersion.Migrations
                     b.ToTable("Portfolios");
                 });
 
-            modelBuilder.Entity("LanguagePortfolio", b =>
+            modelBuilder.Entity("PortfolioSecondVersion.Models.LanguagePortfolio", b =>
                 {
-                    b.HasOne("PortfolioSecondVersion.Models.Language", null)
-                        .WithMany()
-                        .HasForeignKey("LanguagesId")
+                    b.HasOne("PortfolioSecondVersion.Models.Language", "Language")
+                        .WithMany("LanguagePortfolio")
+                        .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PortfolioSecondVersion.Models.Portfolio", null)
-                        .WithMany()
-                        .HasForeignKey("PortfoliosId")
+                    b.HasOne("PortfolioSecondVersion.Models.Portfolio", "Portfolio")
+                        .WithMany("LanguagePortfolio")
+                        .HasForeignKey("PortfolioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Language");
+
+                    b.Navigation("Portfolio");
+                });
+
+            modelBuilder.Entity("PortfolioSecondVersion.Models.Language", b =>
+                {
+                    b.Navigation("LanguagePortfolio");
+                });
+
+            modelBuilder.Entity("PortfolioSecondVersion.Models.Portfolio", b =>
+                {
+                    b.Navigation("LanguagePortfolio");
                 });
 #pragma warning restore 612, 618
         }

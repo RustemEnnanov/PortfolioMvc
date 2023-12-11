@@ -19,59 +19,42 @@
 <div class="row">
     <div class="col-md-4">
      
-                @using (Html.BeginForm("SetPortfolio", "Portfolio", FormMethod.Get))
+                @using (Html.BeginForm("SetPortfolio", "Portfolio", FormMethod.Post))
                 {
-                    @*
+                <fieldset>
                     <div class="form-group">
-                        <label asp-for="Portfolio.Name" class="control-label"></label>
-                        <input asp-for="Portfolio.Name" class="form-control" />
-                        <span asp-validation-for="Portfolio.Name" class="text-danger"></span>
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Portfolio.Surname" class="control-label"></label>
-                        <input asp-for="Portfolio.Surname" class="form-control" />
-                        <span asp-validation-for="Portfolio.Surname" class="text-danger"></span>
+                        <label asp-for="Surname" class="control-label"></label>
+                        <input asp-for="Surname" class="form-control" />
+                        <span asp-validation-for="Surname" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Portfolio.BirthDate" class="control-label"></label>
-                        <input asp-for="Portfolio.BirthDate" class="form-control" />
-                        <span asp-validation-for="Portfolio.BirthDate" class="text-danger"></span>
+                        <label asp-for="BirthDate" class="control-label"></label>
+                        <input asp-for="BirthDate" class="form-control" />
+                        <span asp-validation-for="BirthDate" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Portfolio.Description" class="control-label"></label>
-                        <textarea asp-for="Portfolio.Description" class="form-control"></textarea>
-                        <span asp-validation-for="Portfolio.Description" class="text-danger"></span>
-                    </div> *@
-                    <fieldset>
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div> 
+
                     <label for="SelectedItemIds">Select items:</label>
 
                     @Html.ListBoxFor(model => model.SelectedItemIds, Model.Languages, new { @class = "form-control" })
-
-                         @*@Html.DropDownList("Languages")
-                @Html.ListBox("Languages", ViewBag.Languages as MultiSelectList)*@
-                        @* @Html.ListBoxFor( x => x.Languages, 
-                             ViewBag.Languages as MultiSelectList, 
-                             new { 
-                                 @class="form-group",
-                                 style= "width:200px"
-                             }
-                         )
-
-                <select asp-for="Languages" class="form-control" asp-items="ViewBag.Languages" multiple></select>*@
-                        <p>
-
-                            <input type="submit" value="Submit" />
-
-                        </p>
-
+                    <button type="submit">Submit</button>
                     </fieldset>
-                <div class="form-group" id="LanguageBlock"></div>
+               /* <div class="form-group" id="LanguageBlock"></div>
                 <div class="form-group">
                     <input value="Test" class="btn btn-primary" id="Test" />
                 </div>
                 <div class="form-group">
                     <input type="submit" value="SetPortfolio" class="btn btn-primary" id="Test" />
-                </div>
+                </div> */
                 }
 
                 @*
