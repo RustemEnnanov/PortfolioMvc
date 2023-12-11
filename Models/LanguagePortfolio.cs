@@ -5,8 +5,6 @@ namespace PortfolioSecondVersion.Models
 {
     public class LanguagePortfolio
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
         public Guid LanguageId { get; set; }
         public Language Language { get; set; }
 

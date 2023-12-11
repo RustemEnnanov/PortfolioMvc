@@ -42,36 +42,28 @@ namespace PortfolioSecondVersion.Migrations
                 name: "LanguagesPortfolios",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LanguageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PortfolioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LanguagesPortfolios", x => x.Id);
+                    table.PrimaryKey("PK_LanguagesPortfolios", x => new { x.PortfolioId, x.LanguageId });
                     table.ForeignKey(
                         name: "FK_LanguagesPortfolios_Languages_LanguageId",
                         column: x => x.LanguageId,
                         principalTable: "Languages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_LanguagesPortfolios_Portfolios_PortfolioId",
                         column: x => x.PortfolioId,
                         principalTable: "Portfolios",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_LanguagesPortfolios_LanguageId",
                 table: "LanguagesPortfolios",
                 column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_LanguagesPortfolios_PortfolioId",
-                table: "LanguagesPortfolios",
-                column: "PortfolioId");
         }
 
         /// <inheritdoc />

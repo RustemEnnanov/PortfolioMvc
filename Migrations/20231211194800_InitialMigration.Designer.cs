@@ -12,7 +12,7 @@ using PortfolioSecondVersion.Data;
 namespace PortfolioSecondVersion.Migrations
 {
     [DbContext(typeof(PortfolioSecondVersionContext))]
-    [Migration("20231211100807_InitialMigration")]
+    [Migration("20231211194800_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -43,21 +43,15 @@ namespace PortfolioSecondVersion.Migrations
 
             modelBuilder.Entity("PortfolioSecondVersion.Models.LanguagePortfolio", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid>("PortfolioId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("LanguageId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("PortfolioId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
+                    b.HasKey("PortfolioId", "LanguageId");
 
                     b.HasIndex("LanguageId");
-
-                    b.HasIndex("PortfolioId");
 
                     b.ToTable("LanguagesPortfolios");
                 });
@@ -94,13 +88,13 @@ namespace PortfolioSecondVersion.Migrations
                     b.HasOne("PortfolioSecondVersion.Models.Language", "Language")
                         .WithMany("LanguagePortfolio")
                         .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("PortfolioSecondVersion.Models.Portfolio", "Portfolio")
                         .WithMany("LanguagePortfolio")
                         .HasForeignKey("PortfolioId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Language");
