@@ -12,7 +12,7 @@ using PortfolioSecondVersion.Data;
 namespace PortfolioSecondVersion.Migrations
 {
     [DbContext(typeof(PortfolioSecondVersionContext))]
-    [Migration("20231211194800_InitialMigration")]
+    [Migration("20231212204604_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -24,6 +24,28 @@ namespace PortfolioSecondVersion.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("PortfolioSecondVersion.Models.Image", b =>
+                {
+                    b.Property<Guid>("PortfolioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("ImageData")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PortfolioId");
+
+                    b.ToTable("Images");
+                });
 
             modelBuilder.Entity("PortfolioSecondVersion.Models.Language", b =>
                 {
@@ -83,12 +105,22 @@ namespace PortfolioSecondVersion.Migrations
                     b.ToTable("Portfolios");
                 });
 
+            modelBuilder.Entity("PortfolioSecondVersion.Models.Image", b =>
+                {
+                    b.HasOne("PortfolioSecondVersion.Models.Portfolio", "Portfolio")
+                        .WithMany("Photo")
+                        .HasForeignKey("PortfolioId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Portfolio");
+                });
+
             modelBuilder.Entity("PortfolioSecondVersion.Models.LanguagePortfolio", b =>
                 {
                     b.HasOne("PortfolioSecondVersion.Models.Language", "Language")
                         .WithMany("LanguagePortfolio")
                         .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PortfolioSecondVersion.Models.Portfolio", "Portfolio")
@@ -110,6 +142,8 @@ namespace PortfolioSecondVersion.Migrations
             modelBuilder.Entity("PortfolioSecondVersion.Models.Portfolio", b =>
                 {
                     b.Navigation("LanguagePortfolio");
+
+                    b.Navigation("Photo");
                 });
 #pragma warning restore 612, 618
         }

@@ -23,7 +23,7 @@ namespace PortfolioSecondVersion.Models
         public DateTime BirthDate { get; set; }
         [MaxLength(300)]
         public string? Description {get; set;}
-
+        public ICollection<Image> Photo { get; set; }
         public ICollection<LanguagePortfolio> LanguagePortfolio { get; set; }
 
     }

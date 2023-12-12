@@ -19,5 +19,7 @@ namespace PortfolioSecondVersion.Models
         public DateTime BirthDate { get; set; }
         [MaxLength(300)]
         public string? Description { get; set; }
+
+        public IFormFile Avatar { get; set; }
     }
 }
