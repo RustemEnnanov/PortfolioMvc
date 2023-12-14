@@ -9,13 +9,13 @@ namespace PortfolioSecondVersion.Models
 {
     public class Language
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity )]
-        public Guid Id {get;set;}
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
         [Required]
         [MaxLength(100)]
-        public string? Name {get;set;}
+        public string? Name { get; set; }
 
-        public ICollection<LanguagePortfolio> LanguagePortfolio { get; set;}
-        
+        public ICollection<LanguagePortfolio> LanguagePortfolio { get; set; }
+
     }
 }

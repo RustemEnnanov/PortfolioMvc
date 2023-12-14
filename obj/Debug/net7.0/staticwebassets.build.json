@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "DzNTTZC5MUsLtPB0KFuMuXpy/2ZQf9UJjbcCFkTsPBc=",
+  "Hash": "LsiMgkZFm+qru86YKGP0yEiLO1xZagImylgw3gfIP4k=",
   "Source": "PortfolioSecondVersion",
   "BasePath": "_content/PortfolioSecondVersion",
   "Mode": "Default",
@@ -151,6 +151,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\vscodeproject\\PortfolioSecondVersion\\wwwroot\\images\\profile.png",
+      "SourceId": "PortfolioSecondVersion",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\vscodeproject\\PortfolioSecondVersion\\wwwroot\\",
+      "BasePath": "_content/PortfolioSecondVersion",
+      "RelativePath": "images/profile.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\profile.png"
     },
     {
       "Identity": "D:\\vscodeproject\\PortfolioSecondVersion\\wwwroot\\js\\site.js",

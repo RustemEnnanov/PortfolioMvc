@@ -10,6 +10,7 @@ namespace PortfolioSecondVersion.Data
         public DbSet<Language> Languages { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<LanguagePortfolio> LanguagesPortfolios { get; set; }
+        public DbSet<ProfileCommunication> ProfileCommunications { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<LanguagePortfolio>().HasKey(sc => new { sc.PortfolioId, sc.LanguageId });
@@ -23,6 +24,14 @@ namespace PortfolioSecondVersion.Data
             modelBuilder.Entity<Image>().HasKey(img => new { img.PortfolioId });
             modelBuilder.Entity<Portfolio>()
                .HasMany(portfolio => portfolio.Photo)
+               .WithOne(portfolio => portfolio.Portfolio)
+               .HasForeignKey(portfolio => portfolio.PortfolioId)
+               .OnDelete(DeleteBehavior.NoAction)
+               .IsRequired(false);
+
+            modelBuilder.Entity<ProfileCommunication>().HasKey(prof => new { prof.PortfolioId });
+            modelBuilder.Entity<Portfolio>()
+               .HasMany(portfolio => portfolio.ProfileCommunication)
                .WithOne(portfolio => portfolio.Portfolio)
                .HasForeignKey(portfolio => portfolio.PortfolioId)
                .OnDelete(DeleteBehavior.NoAction)

@@ -10,8 +10,8 @@ namespace PortfolioSecondVersion.Models
 {
     public class Portfolio
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity )]
-        public Guid Id {get; set;}
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
         [Required]
         [MaxLength(100)]
         public string? Name { get; set; }
@@ -22,9 +22,11 @@ namespace PortfolioSecondVersion.Models
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
         [MaxLength(300)]
-        public string? Description {get; set;}
+        public string? Description { get; set; }
         public ICollection<Image> Photo { get; set; }
         public ICollection<LanguagePortfolio> LanguagePortfolio { get; set; }
+        public ICollection<ProfileCommunication> ProfileCommunication { get; set; }
+
 
     }
 }

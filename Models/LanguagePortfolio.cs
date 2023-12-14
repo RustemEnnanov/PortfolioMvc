@@ -8,7 +8,7 @@ namespace PortfolioSecondVersion.Models
         public Guid LanguageId { get; set; }
         public Language Language { get; set; }
 
-        public Guid PortfolioId { get; set; } 
+        public Guid PortfolioId { get; set; }
         public Portfolio Portfolio { get; set; }
     }
 }

@@ -1,4 +1,8 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function AddCommunication() {
+    var node = document.createElement('input');
+    node.type = "text";
+    node.name = "Communications";
+    node.setAttribute("class", "form-control");
 
-// Write your JavaScript code.
+    $('#CommunicationBlock').append(node);
+}

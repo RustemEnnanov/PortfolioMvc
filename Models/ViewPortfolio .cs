@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PortfolioSecondVersion.Models
 {
-    public class ViewPortfolio 
+    public class ViewPortfolio
     {
         public List<Guid> SelectedItemIds { get; set; }
-        public List<SelectListItem> Languages { get; set;}
+        public List<SelectListItem> Languages { get; set; }
         [Required]
         [MaxLength(100)]
         public string? Name { get; set; }
@@ -21,5 +21,6 @@ namespace PortfolioSecondVersion.Models
         public string? Description { get; set; }
 
         public IFormFile Avatar { get; set; }
+        public string[] Communications { get; set; }
     }
 }

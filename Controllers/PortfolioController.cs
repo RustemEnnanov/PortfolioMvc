@@ -23,10 +23,7 @@ namespace PortfolioSecondVersion.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+
         public async Task<IActionResult> Create(Portfolio newPortfolio)
         {
             var languages = await _context.Languages.ToListAsync<Language>();
@@ -40,18 +37,15 @@ namespace PortfolioSecondVersion.Controllers
         [HttpPost]
         public void SetPortfolio(ViewPortfolio addPortfolioData)
         {
-            Guid portfolioId = Guid.NewGuid();
-            List<LanguagePortfolio> test = addPortfolioData.SelectedItemIds.Select(l => new LanguagePortfolio
-            {
-                LanguageId = l,
-                PortfolioId = portfolioId
-            }).ToList();
-
             Portfolio newPortfolio = new Portfolio {
-                Id = portfolioId,
+                Id = Guid.NewGuid(),
                 Name = addPortfolioData.Name,
                 Surname = addPortfolioData.Surname,
                 Description = addPortfolioData.Description,
+                ProfileCommunication = addPortfolioData.Communications.Select(com => new ProfileCommunication {
+                    Title = "Other",
+                    Number = com
+                }).ToList(),
                 LanguagePortfolio = addPortfolioData.SelectedItemIds.Select(l => new LanguagePortfolio { 
                     LanguageId = l
                 }).ToList()               
@@ -72,34 +66,6 @@ namespace PortfolioSecondVersion.Controllers
             }
             _context.Portfolios.Add(newPortfolio);
             _context.SaveChanges();
-            /*
-                        List<LanguagePortfolio> newLanguagePortfolio = addPortfolioData.SelectedItemIds.Select(l => 
-                            new LanguagePortfolio
-                            { 
-                                PortfolioId = portfolioId,
-                                LanguageId = new Guid(l.ToString())
-                            }).ToList();
-
-                        _context.LanguagesPortfolios.AddRange(newLanguagePortfolio);
-                        _context.SaveChanges();
-
-                        byte[] imageData = null;
-                        using (var binaryReader = new BinaryReader(addPortfolioData.Avatar.OpenReadStream()))
-                        {
-                            imageData = binaryReader.ReadBytes((int)addPortfolioData.Avatar.Length);
-
-                        }
-                        Image newImage = new Image
-                        {
-                            Title = addPortfolioData.Avatar.Name,
-                            FileName = addPortfolioData.Avatar.FileName,
-                            ImageData = imageData,
-                            PortfolioId = portfolioId,
-                            Description = String.Empty
-                        };
-                        _context.Portfolios.Add(newPortfolio);
-                        _context.SaveChanges();
-                            */
         }
 
     }

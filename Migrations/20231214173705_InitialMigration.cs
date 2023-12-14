@@ -39,26 +39,6 @@ namespace PortfolioSecondVersion.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Images",
-                columns: table => new
-                {
-                    PortfolioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageData = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Images", x => x.PortfolioId);
-                    table.ForeignKey(
-                        name: "FK_Images_Portfolios_PortfolioId",
-                        column: x => x.PortfolioId,
-                        principalTable: "Portfolios",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "LanguagesPortfolios",
                 columns: table => new
                 {
@@ -81,6 +61,56 @@ namespace PortfolioSecondVersion.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ProfileCommunications",
+                columns: table => new
+                {
+                    PortfolioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Number = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProfileCommunications", x => x.PortfolioId);
+                    table.ForeignKey(
+                        name: "FK_ProfileCommunications_Portfolios_PortfolioId",
+                        column: x => x.PortfolioId,
+                        principalTable: "Portfolios",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    PortfolioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageData = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProfileCommunicationPortfolioId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.PortfolioId);
+                    table.ForeignKey(
+                        name: "FK_Images_Portfolios_PortfolioId",
+                        column: x => x.PortfolioId,
+                        principalTable: "Portfolios",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Images_ProfileCommunications_ProfileCommunicationPortfolioId",
+                        column: x => x.ProfileCommunicationPortfolioId,
+                        principalTable: "ProfileCommunications",
+                        principalColumn: "PortfolioId");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Images_ProfileCommunicationPortfolioId",
+                table: "Images",
+                column: "ProfileCommunicationPortfolioId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_LanguagesPortfolios_LanguageId",
                 table: "LanguagesPortfolios",
@@ -95,6 +125,9 @@ namespace PortfolioSecondVersion.Migrations
 
             migrationBuilder.DropTable(
                 name: "LanguagesPortfolios");
+
+            migrationBuilder.DropTable(
+                name: "ProfileCommunications");
 
             migrationBuilder.DropTable(
                 name: "Languages");

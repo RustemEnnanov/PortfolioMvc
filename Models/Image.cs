@@ -11,5 +11,6 @@ namespace PortfolioSecondVersion.Models
         public string? Description { get; set; }
         public Guid PortfolioId { get; set; }
         public Portfolio? Portfolio { get; set; }
+
     }
 }

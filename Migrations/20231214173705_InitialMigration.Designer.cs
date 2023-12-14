@@ -12,7 +12,7 @@ using PortfolioSecondVersion.Data;
 namespace PortfolioSecondVersion.Migrations
 {
     [DbContext(typeof(PortfolioSecondVersionContext))]
-    [Migration("20231212204604_InitialMigration")]
+    [Migration("20231214173705_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -39,10 +39,15 @@ namespace PortfolioSecondVersion.Migrations
                     b.Property<byte[]>("ImageData")
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<Guid?>("ProfileCommunicationPortfolioId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PortfolioId");
+
+                    b.HasIndex("ProfileCommunicationPortfolioId");
 
                     b.ToTable("Images");
                 });
@@ -105,12 +110,37 @@ namespace PortfolioSecondVersion.Migrations
                     b.ToTable("Portfolios");
                 });
 
+            modelBuilder.Entity("PortfolioSecondVersion.Models.ProfileCommunication", b =>
+                {
+                    b.Property<Guid>("PortfolioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Number")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("PortfolioId");
+
+                    b.ToTable("ProfileCommunications");
+                });
+
             modelBuilder.Entity("PortfolioSecondVersion.Models.Image", b =>
                 {
                     b.HasOne("PortfolioSecondVersion.Models.Portfolio", "Portfolio")
                         .WithMany("Photo")
                         .HasForeignKey("PortfolioId")
                         .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("PortfolioSecondVersion.Models.ProfileCommunication", null)
+                        .WithMany("Icons")
+                        .HasForeignKey("ProfileCommunicationPortfolioId");
 
                     b.Navigation("Portfolio");
                 });
@@ -134,6 +164,16 @@ namespace PortfolioSecondVersion.Migrations
                     b.Navigation("Portfolio");
                 });
 
+            modelBuilder.Entity("PortfolioSecondVersion.Models.ProfileCommunication", b =>
+                {
+                    b.HasOne("PortfolioSecondVersion.Models.Portfolio", "Portfolio")
+                        .WithMany("ProfileCommunication")
+                        .HasForeignKey("PortfolioId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Portfolio");
+                });
+
             modelBuilder.Entity("PortfolioSecondVersion.Models.Language", b =>
                 {
                     b.Navigation("LanguagePortfolio");
@@ -144,6 +184,13 @@ namespace PortfolioSecondVersion.Migrations
                     b.Navigation("LanguagePortfolio");
 
                     b.Navigation("Photo");
+
+                    b.Navigation("ProfileCommunication");
+                });
+
+            modelBuilder.Entity("PortfolioSecondVersion.Models.ProfileCommunication", b =>
+                {
+                    b.Navigation("Icons");
                 });
 #pragma warning restore 612, 618
         }
