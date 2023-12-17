@@ -1,0 +1,45 @@
+﻿@model PortfolioSecondVersion.ViewPost;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Responsive Resume/CV Template for Developers</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="~/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/plugins/font-awesome/css/font-awesome.css">
+    <link id="theme-style" rel="stylesheet" href="~/css/styles.css">
+    <link rel="stylesheet" href="~/css/site.css">
+</head>
+<body>
+
+    @using (Html.BeginForm("Create", "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="form-group">
+            <div class="form-group">
+                @Html.Label("Title", "Title", new { @class="control-label"})
+                @Html.TextBox("Title", "Title", new { @class="form-control"})
+            </div>
+            <div class="form-group">
+                @Html.Label("CompanyNames", "CompanyNames", new { @class="control-label"})
+                @Html.TextBox("CompanyNames", "CompanyNames", new { @class="form-control"})
+            </div>
+            <div class="form-group">
+                @Html.Label("StartDate", "StartDate", new { @class="control-label"})
+                @Html.TextBoxFor(m => Model.StartDate,new { @type = "date", @class="form-control"})
+            </div>
+            <div class="form-group">
+                @Html.Label("DueDate", "DueDate", new { @class="control-label"})
+                @Html.TextBoxFor(m => Model.DueDate, new { @type = "date", @class="form-control"})
+            </div>
+            <div class="form-group">
+                @Html.Label("Description", "Description", new { @class="control-label"})
+                @Html.TextArea("Description", null, 5, 50, new { @class="form-control"})
+            </div>
+            <button type="submit">Submit</button>
+        </div>
+    }
+
+</body>
+</html>

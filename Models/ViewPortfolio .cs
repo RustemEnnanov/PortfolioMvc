@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RazorPagesMovie.Models;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
-namespace PortfolioSecondVersion.Models
+namespace PortfolioSecondVersion
 {
-    public class ViewPortfolio
+    public class ViewProfile
     {
         public List<Guid> SelectedItemIds { get; set; }
         public List<SelectListItem> Languages { get; set; }
@@ -22,5 +23,6 @@ namespace PortfolioSecondVersion.Models
 
         public IFormFile Avatar { get; set; }
         public string[] Communications { get; set; }
+        public ICollection<ViewPost> Experience { get; set; }
     }
 }

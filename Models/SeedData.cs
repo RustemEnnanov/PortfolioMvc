@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using PortfolioSecondVersion.Data;
 
-namespace PortfolioSecondVersion.Models
+
+namespace PortfolioSecondVersion
 {
     public static class SeedData
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using(var context = new PortfolioSecondVersionContext(serviceProvider.GetRequiredService<DbContextOptions<PortfolioSecondVersionContext>>())) 
+            using(var context = new ProfileSecondVersionContext(serviceProvider.GetRequiredService<DbContextOptions<ProfileSecondVersionContext>>())) 
             {
                 if (context.Languages.Any())
                 {

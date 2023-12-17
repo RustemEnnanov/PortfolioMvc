@@ -1,5 +1,6 @@
 ﻿
-@model PortfolioSecondVersion.Models.ViewIndex;
+@model PortfolioSecondVersion.ViewHome;
+
 @{
     Layout = null;
 }
@@ -19,16 +20,32 @@
 
     <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">   
     <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.css">
-    <link id="theme-style" rel="stylesheet" href="../css/styles.css">
+    <link id="theme-style" rel="stylesheet" href="~/css/styles.css">
+    <link id="theme-style" rel="stylesheet" href="~/css/site.css">
 
 </head> 
 
 <body>
+    <div class="form_post_hidden">
+        <div class="edite_container">
+            <input type="button" value="" class="edit_post_close"/>
+            @using (Html.BeginForm("SetProfile", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                <fieldset>
+                    <div class="form-group">
+                        @Html.Label("Post", "Post.Title", new { @class="control-label"})
+                        @Html.TextBoxFor(m => Model.Post.Title, "Title", new { @class="form-control"})
+                        <span asp-validation-for="Post.Title" class="text-danger"></span>
+                    </div>
+                </fieldset>
+                }
+        </div>
+    </div>
     <div class="wrapper">
         <div class="sidebar-wrapper">
             <div class="profile-container">
                 
-                @Html.Raw(ListHelper.ImageBase64(Model.ImageBase64,"Image"));
+                @Html.Raw(ListHelper.ImageBase64(Model.ImageBase64,"Image"))
                 <h1 class="name">@Model?.FullName</h1>
                 <h3 class="tagline">Full Stack Developer</h3>
             </div><!--//profile-container-->
@@ -37,7 +54,7 @@
                 <ul class="list-unstyled contact-list">
                     <li class="email"><i class="fa fa-envelope"></i><a href="mailto: yourname@email.com">alan.doe@website.com</a></li>
                     <li class="phone"><i class="fa fa-phone"></i><a href="tel:0123 456 789">0123 456 789</a></li>
-                    <li class="website"><i class="fa fa-globe"></i><a href="http://themes.3rdwavemedia.com/website-templates/free-responsive-website-template-for-developers/" target="_blank">portfoliosite.com</a></li>
+                    <li class="website"><i class="fa fa-globe"></i><a href="http://themes.3rdwavemedia.com/website-templates/free-responsive-website-template-for-developers/" target="_blank">Profilesite.com</a></li>
                     <li class="linkedin"><i class="fa fa-linkedin"></i><a href="#" target="_blank">linkedin.com/in/alandoe</a></li>
                     <li class="github"><i class="fa fa-github"></i><a href="#" target="_blank">github.com/username</a></li>
                     <li class="twitter"><i class="fa fa-twitter"></i><a href="https://twitter.com/3rdwave_themes" target="_blank">twittername</a></li>
@@ -133,6 +150,11 @@
             </section><!--//section-->
 
             <section class="section projects-section">
+                <input type="button"  value="" class="btn_post_edit" style="
+                    width: 30px;
+                    height: 30px;
+                    float: right;
+                "/>
                 <h2 class="section-title"><i class="fa fa-archive"></i>Projects</h2>
                 <div class="intro">
                     <p>You can list your side projects or open source libraries in this section. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum et ligula in nunc bibendum fringilla a eu lectus.</p>
@@ -212,7 +234,6 @@
 
         </div><!--//main-body-->
     </div>
-
     <footer class="footer">
         <div class="text-center">
                 <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->

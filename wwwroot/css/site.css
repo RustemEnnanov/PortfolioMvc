@@ -7,9 +7,29 @@ html {
     font-size: 16px;
   }
 }
-
+.form_post_hidden {
+    display: flex;
+    background: rgba(255,255,155, 0.5);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    justify-content: space-evenly;
+}
+.edite_container {
+    display: block;
+    width: 60%;
+    height: 90%;
+    background-color: red;
+}
+.edit_post_close {
+    float: right;
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 .btn-add 
 {

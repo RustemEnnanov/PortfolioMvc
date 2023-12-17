@@ -1,14 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 using RazorPagesMovie.Models;
 
-namespace PortfolioSecondVersion.Models
+namespace PortfolioSecondVersion
 {
-    public class Portfolio
+
+    public class Profile
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
@@ -24,8 +23,9 @@ namespace PortfolioSecondVersion.Models
         [MaxLength(300)]
         public string? Description { get; set; }
         public ICollection<Image> Photo { get; set; }
-        public ICollection<LanguagePortfolio> LanguagePortfolio { get; set; }
+        public ICollection<ProfileLanguage> ProfileLanguage { get; set; }
         public ICollection<ProfileCommunication> ProfileCommunication { get; set; }
+        public ICollection<Post> Post { get; set; }
 
 
     }

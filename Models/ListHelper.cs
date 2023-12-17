@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Text.Encodings.Web;
 
-namespace PortfolioSecondVersion.Models
+namespace PortfolioSecondVersion
 {
     public static class ListHelper
     {

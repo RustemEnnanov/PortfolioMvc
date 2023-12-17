@@ -249,3 +249,9 @@ D:\vscodeproject\PortfolioSecondVersion\obj\Debug\net7.0\staticwebassets.pack.js
 D:\vscodeproject\PortfolioSecondVersion\obj\Debug\net7.0\staticwebassets.build.json
 D:\vscodeproject\PortfolioSecondVersion\obj\Debug\net7.0\staticwebassets.development.json
 D:\vscodeproject\PortfolioSecondVersion\obj\Debug\net7.0\scopedcss\bundle\PortfolioSecondVersion.styles.css
+D:\vscodeproject\PortfolioSecondVersion\bin\Debug\net7.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\vscodeproject\PortfolioSecondVersion\bin\Debug\net7.0\Microsoft.Extensions.Caching.Memory.dll
+D:\vscodeproject\PortfolioSecondVersion\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\vscodeproject\PortfolioSecondVersion\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\vscodeproject\PortfolioSecondVersion\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+D:\vscodeproject\PortfolioSecondVersion\bin\Debug\net7.0\Microsoft.Extensions.Primitives.dll
