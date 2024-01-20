@@ -1,7 +1,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using PortfolioSecondVersion.Models;
 using RazorPagesMovie.Models;
 
 namespace PortfolioSecondVersion

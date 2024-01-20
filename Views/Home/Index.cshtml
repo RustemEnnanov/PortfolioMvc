@@ -1,5 +1,6 @@
 ﻿
 @model PortfolioSecondVersion.ViewHome;
+@using PortfolioSecondVersion.Models;
 
 @{
     Layout = null;
@@ -18,8 +19,8 @@
     <link rel="shortcut icon" href="favicon.ico">  
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,400italic,300italic,300,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">   
-    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="~/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/plugins/font-awesome/css/font-awesome.css">
     <link id="theme-style" rel="stylesheet" href="~/css/styles.css">
     <link id="theme-style" rel="stylesheet" href="~/css/site.css">
 
@@ -27,37 +28,56 @@
 
 <body>
     <div class="form_post_hidden">
-        <div class="edite_container">
-            <input type="button" value="" class="edit_post_close"/>
-            @using (Html.BeginForm("SetProfile", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        <div class="form_post_edite">
+            <div class="wrapper_close_btn">
+                <input type="button" value="" onclick="ClosePostCareerProfile()" class="edit_post_close" />
+            </div>
+            
+            @using (Html.BeginForm("EditePost", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "form-data-edit" }))
                 {
                 <fieldset>
+                    @Html.HiddenFor(m => Model.Posts.Where(p => p.Position == 1).FirstOrDefault().ProfileId)
                     <div class="form-group">
-                        @Html.Label("Post", "Post.Title", new { @class="control-label"})
-                        @Html.TextBoxFor(m => Model.Post.Title, "Title", new { @class="form-control"})
-                        <span asp-validation-for="Post.Title" class="text-danger"></span>
+                        @Html.Label("Title", "Title", new { @class="control-label"})
+                        @Html.TextBoxFor(m => Model.Posts.Where(p => p.Position == 1).FirstOrDefault().Title,new { @type = "text", @class="form-control"})
                     </div>
+                     <div class="form-group">
+                        @Html.Label("CompanyNames", "CompanyNames", new { @class="control-label"})
+                        @Html.TextBoxFor(m => Model.Posts.Where(p => p.Position == 1).FirstOrDefault().CompanyNames,new { @type = "text", @class="form-control"})
+                    </div>
+                    <div class="form-group post-date-group">
+                        @Html.Label("StartDate", "StartDate", new { @class="control-label"})
+                        @Html.TextBoxFor(m => Model.Posts.Where(p => p.Position == 1).FirstOrDefault().StartDate,new { @type = "date", @class="form-control"})
+                        @Html.Label("DueDate", "DueDate", new { @class="control-label"})
+                        @Html.TextBoxFor(m => Model.Posts.Where(p => p.Position == 1).FirstOrDefault().DueDate, new { @type = "date", @class="form-control"})
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Description", "Description", new { @class="control-label"})
+                        @Html.TextAreaFor(m => Model.Posts.Where(p => p.Position == 1).FirstOrDefault().Description, new { @class="form-control"})
+                    </div>
+                    <input type="button" onclick="sendPostFormData()" value="Send"/>
                 </fieldset>
                 }
         </div>
     </div>
     <div class="wrapper">
         <div class="sidebar-wrapper">
-            <div class="profile-container">
+            <div class="profile-container" id="profile-container">
                 
                 @Html.Raw(ListHelper.ImageBase64(Model.ImageBase64,"Image"))
                 <h1 class="name">@Model?.FullName</h1>
                 <h3 class="tagline">Full Stack Developer</h3>
             </div><!--//profile-container-->
-
+                
             <div class="contact-container container-block">
                 <ul class="list-unstyled contact-list">
-                    <li class="email"><i class="fa fa-envelope"></i><a href="mailto: yourname@email.com">alan.doe@website.com</a></li>
-                    <li class="phone"><i class="fa fa-phone"></i><a href="tel:0123 456 789">0123 456 789</a></li>
-                    <li class="website"><i class="fa fa-globe"></i><a href="http://themes.3rdwavemedia.com/website-templates/free-responsive-website-template-for-developers/" target="_blank">Profilesite.com</a></li>
-                    <li class="linkedin"><i class="fa fa-linkedin"></i><a href="#" target="_blank">linkedin.com/in/alandoe</a></li>
-                    <li class="github"><i class="fa fa-github"></i><a href="#" target="_blank">github.com/username</a></li>
-                    <li class="twitter"><i class="fa fa-twitter"></i><a href="https://twitter.com/3rdwave_themes" target="_blank">twittername</a></li>
+                    <li class="email" id="email"><i class="fa fa-envelope"></i><a href="mailto: yourname@email.com">@Model.Communications.Find(cn => cn == "Mail")</a></li>
+                    <li class="phone"><i class="fa fa-phone"></i><a href="tel:0123 456 789">@Model.Communications.Find(cn => cn == "Phone")</a></li>
+                    <li class="website"><i class="fa fa-globe"></i><a href="http://themes.3rdwavemedia.com/website-templates/free-responsive-website-template-for-developers/" target="_blank">@Model.Communications.Find(cn => cn == "Web")</a></li>
+                    <li class="linkedin"><i class="fa fa-linkedin"></i><a href="#" target="_blank">@Model.Communications.Find(cn => cn == "Linkedin")</a></li>
+                    <li class="github"><i class="fa fa-github"></i><a href="#" target="_blank">@Model.Communications.Find(cn => cn == "Github")</a></li>
+                    <li class="twitter"><i class="fa fa-twitter"></i><a href="https://twitter.com/3rdwave_themes" target="_blank">@Model.Communications.Find(cn => cn == "Twitter")</a></li>
                 </ul>
             </div><!--//contact-container-->
             <div class="education-container container-block">
@@ -77,9 +97,11 @@
             <div class="languages-container container-block">
                 <h2 class="container-block-title">Languages</h2>
                 <ul class="list-unstyled interests-list">
-                    <li>English <span class="lang-desc">(Native)</span></li>
-                    <li>French <span class="lang-desc">(Professional)</span></li>
-                    <li>Spanish <span class="lang-desc">(Professional)</span></li>
+                    @foreach(string language in Model.Languages)
+                    {
+                        <li>@language <span class="lang-desc">(Native)</span></li>
+                    }
+
                 </ul>
             </div><!--//interests-->
 
@@ -97,14 +119,31 @@
         <div class="main-wrapper">
 
             <section class="section summary-section">
-                <h2 class="section-title"><i class="fa fa-user"></i>Career Profile</h2>
+                <div class="dropdown">
+                    <button class="dropbtn">...</button>
+                    <div class="dropdown-content">
+                        <button class="dropdown-item" onclick="onEditePost()" type="button">Редактировать</button>
+                        <button class="dropdown-item" onclick="onDeletePost()" type="button">Удалить</button>
+                        <button class="dropdown-item" onclick="onAddPost()" type="button">Добавить</button>
+                    </div>
+                </div>
+                <h2 class="section-title section-title-custom"><i class="fa fa-user"></i>@Model.Posts.Where(p => p.Position == 1).FirstOrDefault().Title</h2>
                 <div class="summary">
-                    <p>Summarise your career here lorem ipsum dolor sit amet, consectetuer adipiscing elit. You can <a href="http://themes.3rdwavemedia.com/website-templates/orbit-free-resume-cv-template-for-developers/" target="_blank">download this free resume/CV template here</a>. Aenean commodo ligula eget dolor aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu.</p>
+                    <p>@Model.Posts.Where(p => p.Position == 1).FirstOrDefault().Description</p>
                 </div><!--//summary-->
             </section><!--//section-->
 
-            <section class="section experiences-section">
-                <h2 class="section-title"><i class="fa fa-briefcase"></i>Experiences</h2>
+            <section class="section experiences-section" id="experiences-post">
+                <div class="dropdown">
+                    <button class="dropbtn">...</button>
+                    <div class="dropdown-content">
+                        <button class="dropdown-item" onclick="onEditePost()" type="button">Редактировать</button>
+                        <button class="dropdown-item" onclick="onDeletePost()" type="button">Удалить</button>
+                        <button class="dropdown-item" onclick="onAddExperiencePost()" type="button">Добавить</button>
+                    </div>
+                </div>
+
+                <h2 class="section-title section-title-custom"><i class="fa fa-briefcase"></i>Experiences</h2>
 
                 <div class="item">
                     <div class="meta">
@@ -150,6 +189,7 @@
             </section><!--//section-->
 
             <section class="section projects-section">
+
                 <input type="button"  value="" class="btn_post_edit" style="
                     width: 30px;
                     height: 30px;
@@ -240,12 +280,32 @@
                 <small class="copyright">Designed with <i class="fa fa-heart"></i> by <a href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
         </div><!--//container-->
     </footer><!--//footer-->
-
+    <script>
+            // Задаем значение для поля ProfileId после загрузки страницы
+            document.addEventListener('DOMContentLoaded', function () {
+                var emailTag = document.getElementById('email').addEventListener("click", function () {
+                     let tag = document.getElementById('email');
+                     tag.innerHTML = '<input type=\"text\" value=\"test\" class=\"form-control\" id="email-input-edit"/>';
+                });
+            document.addEventListener('mouseup', function (e){
+                var container = document.getElementById('profile-container');
+                if(!container.contains(e.target))
+                {
+                    let instag = document.getElementById('email');
+                    instag.innerHTML = '<i class=\"fa fa-envelope\"></i><a href=\"mailto: yourname@email.com\">test@DelegateStartup.ru</a>';
+                }
+            });
+            var profileIdInput = document.getElementById('Post_ProfileId');
+            profileIdInput.value = "@Model.Id";
+        });
+        
+    </script>
     <!-- Javascript -->          
-    <script type="text/javascript" src="../plugins/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="../plugins/bootstrap/js/bootstrap.min.js"></script>    
+    <script type="text/javascript" src="~/plugins/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="~/plugins/bootstrap/js/bootstrap.min.js"></script>
     <!-- custom js -->
-    <script type="text/javascript" src="../js/main.js"></script>            
+    <script type="text/javascript" src="~/js/main.js"></script>
+    <script type="text/javascript" src="~/js/site.js"></script>
 </body>
 </html> 
 

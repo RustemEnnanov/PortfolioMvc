@@ -1,0 +1,117 @@
+@model ViewProfile
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Responsive Resume/CV Template for Developers</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="~/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/plugins/font-awesome/css/font-awesome.css">
+    <link id="theme-style" rel="stylesheet" href="~/css/styles.css">
+    <link rel="stylesheet" href="~/css/site.css">
+</head>
+
+<body>
+    <h4>Movie</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+
+            @using (Html.BeginForm("SetProfile", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <fieldset>
+                    <div class="form-group">
+                        @Html.Label("Name", "Name", new { @class="control-label"})
+                        @Html.TextBoxFor(m => Model.Name, "Name", new { @class="form-control"})
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Surname", "Surname", new { @class="control-label"})
+                        @Html.TextBoxFor(m => Model.Surname, "Name", new { @class="form-control"})
+                        <span asp-validation-for="Surname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("BirthDate", "BirthDate", new { @class="control-label"})
+                        @Html.TextBoxFor(m => Model.BirthDate,new { @type = "date", @class="form-control"})
+                        <span asp-validation-for="BirthDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Description", "Description", new { @class="control-label"})
+                        @Html.TextArea("Description", null, 5, 50, new { @class="form-control"})
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(model => model.Avatar, new { type = "file", @class="form-control" })
+                        <span asp-validation-for="Avatar" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" id="CommunicationBlock">
+                        @foreach(var comName in Model.Communications)
+                        {
+                            @Html.Label("Communications", @comName, new { @class="control-label", style="width:100%"})
+                            @Html.TextBoxFor(model => model.Communications, new { @class="form-control", style="width: 80% float: left" })
+                            <input type="button" value="+" onclick="AddCommunication()" class="btn btn-success btn-add" />
+                            <span asp-validation-for="Avatar" class="text-danger"></span>
+                        }
+
+                    </div>
+                    @Html.ListBoxFor(model => model.SelectedItemIds, Model.Languages, new { @class = "form-control" })
+                    <button type="submit">Submit</button>
+                </fieldset>
+                /* <div class="form-group" id="LanguageBlock"></div>
+                <div class="form-group">
+                <input value="Test" class="btn btn-primary" id="Test" />
+                </div>
+                <div class="form-group">
+                <input type="submit" value="SetProfile" class="btn btn-primary" id="Test" />
+                </div> */
+            }
+
+            @using (Html.BeginForm("SetProfile", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+            }
+            @*
+            <div>
+            @foreach (var item in (List<Language>)ViewBag.Languages)
+            {
+            <h3> @item.Name </h3>
+            }
+
+            </div>
+            <select class="form-select" asp-items="Model.Languages">
+            @foreach (var item in ViewBag.Languages)
+            {
+            <option class="form-control" value="@item.Id">@item.Name</option>
+            }
+            </select> *@
+
+
+        </div>
+    </div>
+
+
+    <footer class="footer">
+        <div class="text-center">
+            <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+            <small class="copyright">Designed with <i class="fa fa-heart"></i> by <a href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+        </div><!--//container-->
+    </footer><!--//footer-->
+    @* <div class="form-group" id="LanguageBlock" >
+    <div class="form-group">
+    <input value="Test" class="btn btn-primary" id="Test" />
+    </div>
+    </div>
+    <div class="form-group">
+    <input type="submit" value="SetProfile" class="btn btn-primary" />
+    </div>*@
+
+    <script type="text/javascript" src="~/plugins/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="~/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/main.js"></script>
+    <script type="text/javascript" src="~/js/site.js"></script>
+</body>
+</html>
+

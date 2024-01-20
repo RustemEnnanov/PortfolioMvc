@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
+using PortfolioSecondVersion.Models;
 
 namespace PortfolioSecondVersion
 {

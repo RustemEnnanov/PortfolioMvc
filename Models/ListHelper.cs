@@ -39,5 +39,10 @@ namespace PortfolioSecondVersion
             tag.WriteTo(sw, HtmlEncoder.Default);
             return new HtmlString(sw.ToString());
         }
+        public static HtmlString AddExperiences()
+        {
+            string experiencesTag = "<h2 class=\"section-title section-title-custom\"><i class=\"fa fa-briefcase\"><i>TEST</h2>\r\n";
+            return new HtmlString(experiencesTag);
+        }
     }
 }

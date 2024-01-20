@@ -8,19 +8,33 @@ namespace PortfolioSecondVersion.Controllers
 {
     public class PostController : Controller
     {
+        private readonly ProfileSecondVersionContext _context;
+
+        public PostController(ProfileSecondVersionContext context)
+        {
+            _context = context;
+        }
         // GET: PostController
         public ActionResult Index()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Create(ViewPost newPost)
+        public async void Create(ViewPost newpost)
         {
-            var post = newPost;
-
-            var homeData = GetProfile();
-            SaveProfile(newPost);
-            return View();
+            newpost.ProfileId = GetProfile().Id;
+            var postOnCreate = new Post
+            {
+                Title = newpost.Title,
+                Position = newpost.Position,
+                StartDate = newpost.StartDate,
+                DueDate = newpost.DueDate,
+                CompanyNames = newpost.CompanyNames,
+                Description = newpost.Description,
+                ProfileId = new Guid(newpost.ProfileId)
+            };
+            _context.Posts.Add(postOnCreate);
+            await _context.SaveChangesAsync();
         }
         public ViewHome GetProfile()
         {
